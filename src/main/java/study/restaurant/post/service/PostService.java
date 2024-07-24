@@ -53,7 +53,12 @@ public class PostService {
     public Optional<Post> findPostsByPlaceName(String placeName){
         return postRepository.findByPlaceName(placeName);
     }
+<<<<<<< HEAD
     public List<Post> findByAddress(Address address) {
         return postRepository.findByAddress(address.getCity(),address.getDistrict(), address.getRoad());
+=======
+    public List<Post> findByAddress(String city, String district,String road) {
+        return postRepository.findByAddress(city, district, road);
+>>>>>>> 3eff6d8 (Initial commit)
     }
 }

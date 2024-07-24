@@ -1,5 +1,9 @@
 package study.restaurant.user.domain;
 
+<<<<<<< HEAD
+=======
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+>>>>>>> 3eff6d8 (Initial commit)
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -32,6 +36,10 @@ public class User extends BaseTimeEntity {
     private String username;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+<<<<<<< HEAD
+=======
+    @JsonManagedReference
+>>>>>>> 3eff6d8 (Initial commit)
     private List<Post> posts  = new ArrayList<>(); // post가 주인
 
     @Email

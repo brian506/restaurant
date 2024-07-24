@@ -15,14 +15,21 @@ import study.restaurant.user.domain.User;
 
 public class SignupDto {
 
+<<<<<<< HEAD
     @Email
     @NotBlank(message = "이메일 형식을 준수하세요")
     private String email;
+=======
+    @NotBlank
+    @Size(min = 3,message = "이름은 3자리 이상 입력하셔야 합니다.")
+    private String username;
+>>>>>>> 3eff6d8 (Initial commit)
 
     @NotBlank
     @Size(min = 8, message = "비밀번호는 8자리 이상으로 입력해주세요")
     private String password;
 
+<<<<<<< HEAD
    @NotBlank
    @Size(min = 3,message = "이름은 3자리 이상 입력하셔야 합니다.")
    private String username;
@@ -32,6 +39,18 @@ public class SignupDto {
                 .email(email)
                 .password(password)
                 .username(username)
+=======
+    @Email
+    @NotBlank(message = "이메일 형식을 준수하세요")
+    private String email;
+
+
+    public User toEntity(){ //엔티티로 변환
+        return User.builder()
+                .username(username)
+                .password(password)
+                .email(email)
+>>>>>>> 3eff6d8 (Initial commit)
                 .build();
     }
 
