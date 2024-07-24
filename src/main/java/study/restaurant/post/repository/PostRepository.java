@@ -16,14 +16,11 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post,Long> {
 
   List<Post> findByPlace(Place place);
+  // list로 한 이유는 장소에 대한 여러 게시물들을 보기 위해서임
 
   Optional<Post> findByPlaceName(String placeName);
+  // Optional로 한 이유는 가게 이름은 값이 하나라고만 생각하고 장소 한 곳에 대한 게시물만 보기 위해서임
 
-<<<<<<< HEAD
-  @Query("SELECT s FROM Post s WHERE s.address.city = :city AND s.address.district = :district AND s.address.road = :road")
-  List<Post> findByAddress(@Param("city") String city,@Param("district") String district,@Param("road") String road);
-  // 주소 정보를 기반으로 가게 이름을 조회, JPA메서드 쿼리는 메서드 이름을 기반으로 자동으로 쿼리를 생성
-=======
   @Query("SELECT p FROM Post p WHERE"
           + "(:city IS NULL OR p.address.city = :city) AND "
                   + "(:district IS NULL OR p.address.district = :district) AND "
@@ -35,5 +32,5 @@ public interface PostRepository extends JpaRepository<Post,Long> {
    *   각각 따로 @RequestParam으로 따로 받고 , required = false 로 필수요건이 아님을 설정한다.
    *   그리고 repository에서 쿼리문을 이와 같이 쓴다.
    */
->>>>>>> 3eff6d8 (Initial commit)
+
 }

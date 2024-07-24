@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import study.restaurant.util.SuccessResponse;
 
+
+
 @ControllerAdvice
 // spring mvc에서 전역 예외처리, 전역 데이터 바인딩,전역 모델 객체 정의를 도와주는 어노테이션
 public class GlobalExceptionHandler {
@@ -13,7 +15,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<SuccessResponse> handleGenericException(Exception e) {
-        SuccessResponse response = new SuccessResponse(false,"오류 발생 " +e.getMessage(),null);
+        SuccessResponse response = new SuccessResponse(false,"오류 발생 : " +e.getMessage(),null);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
+

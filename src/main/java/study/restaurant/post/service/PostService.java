@@ -12,6 +12,8 @@ import study.restaurant.post.dto.PostRequestDto;
 import study.restaurant.post.repository.PostRepository;
 import study.restaurant.user.domain.User;
 import study.restaurant.user.repository.UserRepository;
+import study.restaurant.util.ListUtil;
+import study.restaurant.util.OptionalUtil;
 
 
 import java.util.List;
@@ -47,18 +49,17 @@ public class PostService {
 
 
     public List<Post> findPostsByPlace(Place place) {
-        return postRepository.findByPlace(place);
+        List<Post> post = ListUtil.getOrElseThrowList(postRepository.findByPlace(place),"아직 작성된 게시물이 없습니다.");
+        return post;
     }
 
     public Optional<Post> findPostsByPlaceName(String placeName){
-        return postRepository.findByPlaceName(placeName);
+        Post post = OptionalUtil.getOrElseThrow(postRepository.findByPlaceName(placeName),"존재하지 않는 가게 이름입니다.");
+        return Optional.of(post);
     }
-<<<<<<< HEAD
-    public List<Post> findByAddress(Address address) {
-        return postRepository.findByAddress(address.getCity(),address.getDistrict(), address.getRoad());
-=======
+
     public List<Post> findByAddress(String city, String district,String road) {
-        return postRepository.findByAddress(city, district, road);
->>>>>>> 3eff6d8 (Initial commit)
+        List<Post> post = ListUtil.getOrElseThrowList(postRepository.findByAddress(city, district, road),"존재하지 않는 주소입니다.");
+        return post;
     }
 }
