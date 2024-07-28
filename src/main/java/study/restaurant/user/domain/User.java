@@ -34,14 +34,13 @@ public class User extends BaseTimeEntity {
     @NotEmpty() // 필수 입력사항
     private String username;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Post> posts  = new ArrayList<>(); // post가 주인
 
-    @Email
+
     private String email;
 
-    @Size(min = 8, message = "비밀번호는 8자리 이상으로 입력해주세요")
     private String password;
 
 
