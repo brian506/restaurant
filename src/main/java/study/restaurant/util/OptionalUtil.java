@@ -8,5 +8,4 @@ public class OptionalUtil {
         return optional.orElseThrow(() -> new RuntimeException(message));
     }
 
-
 }

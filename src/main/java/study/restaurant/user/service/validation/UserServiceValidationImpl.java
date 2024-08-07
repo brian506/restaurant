@@ -2,7 +2,7 @@ package study.restaurant.user.service.validation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import study.restaurant.user.dto.SignupDto;
+
 import study.restaurant.user.repository.UserRepository;
 
 @Service

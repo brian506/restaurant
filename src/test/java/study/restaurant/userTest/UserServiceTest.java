@@ -9,7 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import study.restaurant.user.domain.User;
-import study.restaurant.user.dto.SignupDto;
+import study.restaurant.user.dto.UserRequestDto;
+import study.restaurant.user.dto.UserResponseDto;
 import study.restaurant.user.repository.UserRepository;
 import study.restaurant.user.service.UserService;
 import study.restaurant.user.service.validation.UserServiceValidation;
@@ -35,14 +36,14 @@ public class UserServiceTest {
     @Test @Transactional
     void 회원가입_테스트() throws Exception {
         //given
-        SignupDto signupDto = SignupDto.builder()
+        UserRequestDto userRequestDto = UserRequestDto.builder()
                 .username("최영")
                 .email("brian56@naver.com")
                 .password("wind6298")
                 .build();
 
         //when
-        Long userId = userService.signUp(signupDto); // 사용자 등록
+        Long userId = userService.signUp(userRequestDto); // 사용자 등록
         Optional<User> userOptional = userRepository.findByUsername("최영"); // 사용자 조회
 
         assertTrue(userOptional.isPresent()); // 해당 사용자가 존재하는지 검증
@@ -74,7 +75,7 @@ public class UserServiceTest {
 
         //when
         userRepository.save(user);
-        Optional<User> foundUser = userService.findUserByUsername("강예");
+        Optional<UserResponseDto> foundUser = userService.findUserByUsername("강예");
 
         //then
         assertTrue(foundUser.isPresent());
@@ -92,7 +93,7 @@ public class UserServiceTest {
 
         //when
         userRepository.save(user);
-        Optional<User> findEmail = userService.findByEmail("mesi@gmail.com");
+        Optional<UserResponseDto> findEmail = userService.findByEmail("mesi@gmail.com");
         //then
         assertTrue(findEmail.isPresent());
         assertEquals(user, findEmail.get());

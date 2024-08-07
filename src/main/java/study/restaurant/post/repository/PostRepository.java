@@ -15,10 +15,13 @@ import java.util.Optional;
 @Repository
 public interface PostRepository extends JpaRepository<Post,Long> {
 
-  List<Post> findByPlace(Place place);
+  List<Post> findPostByPlace(Place place);
   // list로 한 이유는 장소에 대한 여러 게시물들을 보기 위해서임
 
-  Optional<Post> findByPlaceName(String placeName);
+  @Query("select count(p) from Post p where p.place.id = :placeId")
+  int countPostsByPlaceId(@Param("placeId") Long placeId); // place 고유의 id에 따라 게시물 개수를 셀 수 있다.
+
+  Optional<Post> findByRestaurant(String restaurant);
   // Optional로 한 이유는 가게 이름은 값이 하나라고만 생각하고 장소 한 곳에 대한 게시물만 보기 위해서임
 
   @Query("SELECT p FROM Post p WHERE"

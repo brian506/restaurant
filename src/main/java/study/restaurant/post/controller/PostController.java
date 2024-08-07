@@ -8,15 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import study.restaurant.post.domain.Place;
-import study.restaurant.post.domain.Post;
 import study.restaurant.post.dto.PostRequestDto;
+import study.restaurant.post.dto.PostResponseDto;
 import study.restaurant.post.service.PostService;
 
 import study.restaurant.util.SuccessResponse;
 
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +26,6 @@ public class PostController {
 
     // {POST} 한 화면에 정보 입력
     @PostMapping()
-
     public ResponseEntity<?> create(@RequestBody @Valid PostRequestDto postRequestDto) {
         Long post = postService.createPost(postRequestDto);
         SuccessResponse response = new SuccessResponse(true,"게시물 생성 완료",post);
@@ -38,18 +36,17 @@ public class PostController {
 
     // {GET} 지역에 따른 맛집들 조회
     @GetMapping("/places")
-    public ResponseEntity<?> getPostsByPlace(@RequestParam Place place) {
-        List<Post> posts = postService.findPostsByPlace(place);
+    public ResponseEntity<?> getPostsByPlace(@RequestParam String placeName) {
+        List<PostResponseDto> posts = postService.findPostsByPlace(placeName);
         SuccessResponse response = new SuccessResponse(true,"가게 조회 성공",posts);
         return new ResponseEntity<>(response, HttpStatus.OK);
-
     }
-    // 조회할 때는 post객체에서 봐도 되는지? dto를 끌고 와서 dto로 봐야 하는지?
+    //컨트롤러에서 @RequestParam은 파라미터를 간단한 데이터 타입(String,int) 등으로 받아야함)
 
     //{GET} 가게이름에 따른 맛집들 조회
-    @GetMapping("/placeNames")
-    public ResponseEntity<?> getPostByPlaceName(@RequestParam String placeName) {
-        Optional<Post> post = postService.findPostsByPlaceName(placeName);
+    @GetMapping("/restaurant")
+    public ResponseEntity<?> getPostByPlaceName(@RequestParam String restaurant) {
+        PostResponseDto post = postService.findByRestaurant(restaurant);
         SuccessResponse response = new SuccessResponse(true,"가게 조회 성공",post);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
@@ -59,10 +56,10 @@ public class PostController {
 
     //{GET} 주소에 따른 맛집 조회
     @GetMapping()
-    public ResponseEntity<?> getPostsByAddress(@RequestParam(required = false) String city,
+    public ResponseEntity<?> getPostsByAddress(@RequestParam(required = false                                                                           ) String city,
                                                @RequestParam(required = false) String district,
                                                @RequestParam(required = false) String road){
-        List<Post> posts = postService.findByAddress(city,district,road);
+        List<PostResponseDto> posts = postService.findByAddress(city,district,road);
         SuccessResponse response = new SuccessResponse(true,"가게 조회 성공",posts);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }

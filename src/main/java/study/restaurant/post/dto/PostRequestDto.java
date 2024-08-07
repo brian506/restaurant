@@ -10,14 +10,14 @@ import study.restaurant.post.domain.Rate;
 
 
 @Getter
- public class PostRequestDto {
+ public class PostRequestDto { // 서버가 클라이언트에게 받아야 하는 정보
 
     private Long userId;
 
-    private Place place;
+    private String placeName;
 
     @NotBlank(message = "가게 이름 정보는 필수 입니다")
-    private String placeName;
+    private String restaurant;
 
     private Address address;
 
@@ -32,8 +32,7 @@ import study.restaurant.post.domain.Rate;
 
     public Post toEntity(){
         return Post.builder()
-                .place(place)
-                .placeName(placeName)
+                .restaurant(restaurant)
                 .address(address)
                 .comment(comment)
                 .rate(rate)

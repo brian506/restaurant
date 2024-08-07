@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
 import lombok.*;
 import study.restaurant.timeDomain.BaseTimeEntity;
 import study.restaurant.user.domain.User;
@@ -20,14 +19,12 @@ import study.restaurant.user.domain.User;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Post extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
     @Column(name = "post_id")
     private Long id;
-
 
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,10 +34,13 @@ public class Post extends BaseTimeEntity {
     //xToOne은 모두 무조건 (fetch = FetchType.LAZY)요걸 입력해야 한다!!
     // 값이 다 딸려나오기 때문에 어려움을 겪을 수 있다
 
-    @Enumerated(EnumType.STRING) // enumtype도 같이 입력
+    @Setter
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "place_id")
     private Place place;
 
-    private String placeName;
+
+    private String restaurant;
 
     @Embedded
     private Address address;
@@ -62,6 +62,7 @@ public class Post extends BaseTimeEntity {
         }
         this.score = score;
     }
+
 
 
 
